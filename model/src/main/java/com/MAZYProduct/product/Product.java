@@ -28,4 +28,15 @@ public class Product {
         this.image = image;
     }
 
+    public int getProductId() {
+        return this.getId().value();
+    }
+
+    public String getCategoryName() {
+        return this.getCategory().name();
+    }
+
+    public BigDecimal getPriceDecimal() {
+        return this.getPrice().value();
+    }
 }

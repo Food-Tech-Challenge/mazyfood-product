@@ -32,7 +32,8 @@ class ProductControllerTest {
 
     @Test
     void shouldCreateProductSuccessfully() {
-        Product mockProduct = new Product("Coca Cola", Category.BEBIDA, "Refrigerante", Price.of(BigDecimal.valueOf(9.99)), "coca.png");
+        ProductId productId = new ProductId(1);
+        Product mockProduct = new Product(productId, "Coca Cola", Category.BEBIDA, "Refrigerante", Price.of(BigDecimal.valueOf(9.99)), "coca.png");
         when(createProductUseCase.createProduct(any(), any(), any(), any(), any()))
                 .thenReturn(mockProduct);
 
@@ -61,7 +62,8 @@ class ProductControllerTest {
 
     @Test
     void shouldGetProductByIdSuccessfully() {
-        Product mockProduct = new Product("Coca Cola", Category.BEBIDA, "Refrigerante", Price.of(BigDecimal.valueOf(9.99)), "coca.png");
+        ProductId productId = new ProductId(1);
+        Product mockProduct = new Product(productId, "Coca Cola", Category.BEBIDA, "Refrigerante", Price.of(BigDecimal.valueOf(9.99)), "coca.png");
         when(getProductUseCase.getProduct(any())).thenReturn(mockProduct);
 
         given()
@@ -76,7 +78,8 @@ class ProductControllerTest {
 
     @Test
     void shouldEditProductSuccessfully() {
-        Product mockProduct = new Product("Coca Cola Zero", Category.BEBIDA, "Sem açúcar", Price.of(BigDecimal.valueOf(10.99)), "coca_zero.png");
+        ProductId productId = new ProductId(1);
+        Product mockProduct = new Product(productId, "Coca Cola Zero", Category.BEBIDA, "Sem açúcar", Price.of(BigDecimal.valueOf(10.99)), "coca_zero.png");
         when(editProductUseCase.editProduct(any(), any(), any(), any(), any(), any())).thenReturn(mockProduct);
 
         String json = """

@@ -1,6 +1,7 @@
 package com.MAZYProduct.application.service;
 
 import com.MAZYProduct.application.port.in.GetProductUseCase;
+import com.MAZYProduct.application.port.in.ProductNotFoundException;
 import com.MAZYProduct.application.port.out.persistence.ProductRepository;
 import com.MAZYProduct.product.Product;
 import com.MAZYProduct.product.ProductId;
@@ -14,7 +15,7 @@ public class GetProductService implements GetProductUseCase {
 
     @Override
     public Product getProduct(ProductId productId) {
-        Product product = productRepository.findById(productId).get();
-        return product;
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException("No product with ID " + productId.value()));
     }
 }

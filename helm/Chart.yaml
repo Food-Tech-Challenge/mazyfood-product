@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mazyfood-product
+description: A Helm chart for deploying AYFood Product service
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

@@ -44,13 +44,18 @@ jobs:
           java-version: '21'
 
       - name: SonarQube Scan
-        run: |
-          mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
-            -Dsonar.projectName=${{ vars.SONAR_PROJECT_NAME }} \
-            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+        uses: sonarsource/sonarqube-scan-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.projectName=${{ vars.SONAR_PROJECT_NAME }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+            -Dsonar.java.binaries=target
+            -Dsonar.coverage.exclusions=**/test/**
 
       - name: Wait and Enforce Quality Gate
         uses: sonarsource/sonarqube-quality-gate-action@master
